@@ -1,0 +1,5 @@
+{
+  "name": "Glass Todo - Nana Banana Edition",
+  "description": "A beautiful todo list application with a glass morphism design, categories, and a built-in focus timer that plays a sound upon completion.",
+  "requestFramePermissions": []
+}
