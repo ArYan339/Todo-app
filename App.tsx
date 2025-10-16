@@ -19,7 +19,6 @@ const App: React.FC = () => {
   });
   
   const [categoryFilter, setCategoryFilter] = useState<Category | 'ALL'>('ALL');
-  const [priorityFilter, setPriorityFilter] = useState<Priority | 'ALL'>('ALL');
   const [activeTimerTodo, setActiveTimerTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
@@ -72,23 +71,15 @@ const App: React.FC = () => {
   const filteredTodos = useMemo(() => {
     return todos.filter(todo => {
       const categoryMatch = categoryFilter === 'ALL' || todo.category === categoryFilter;
-      const priorityMatch = priorityFilter === 'ALL' || todo.priority === priorityFilter;
-      return categoryMatch && priorityMatch;
+      return categoryMatch;
     });
-  }, [todos, categoryFilter, priorityFilter]);
+  }, [todos, categoryFilter]);
 
   const categoryFilterButtons: { label: string, value: Category | 'ALL'}[] = [
     { label: 'All', value: 'ALL' },
     { label: 'Personal', value: Category.PERSONAL },
     { label: 'Work', value: Category.WORK },
     { label: 'Shopping', value: Category.SHOPPING },
-  ];
-  
-  const priorityFilterButtons: { label: string, value: Priority | 'ALL'}[] = [
-    { label: 'All Priorities', value: 'ALL' },
-    { label: 'High', value: Priority.HIGH },
-    { label: 'Medium', value: Priority.MEDIUM },
-    { label: 'Low', value: Priority.LOW },
   ];
 
   return (
@@ -113,21 +104,6 @@ const App: React.FC = () => {
                   className={`px-4 py-2 text-sm font-semibold rounded-full transition ${
                     categoryFilter === value
                       ? 'bg-yellow-400 text-yellow-900 shadow'
-                      : 'bg-yellow-200/50 hover:bg-yellow-200/80 text-yellow-800'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 border-t-2 border-yellow-200/50 pt-4">
-               {priorityFilterButtons.map(({ label, value }) => (
-                <button
-                  key={value}
-                  onClick={() => setPriorityFilter(value)}
-                  className={`px-4 py-2 text-xs font-semibold rounded-full transition ${
-                    priorityFilter === value
-                      ? 'bg-yellow-500 text-white shadow'
                       : 'bg-yellow-200/50 hover:bg-yellow-200/80 text-yellow-800'
                   }`}
                 >
